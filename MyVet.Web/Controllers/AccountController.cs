@@ -22,6 +22,7 @@ namespace MyVet.Web.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model) 
         {
@@ -39,9 +40,16 @@ namespace MyVet.Web.Controllers
                 }
 
                 ModelState.AddModelError(string.Empty, "User or Password not valid.");
+                model.Password = string.Empty;
             }
 
             return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await _userHelper.LogoutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
     }
