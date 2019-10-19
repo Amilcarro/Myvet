@@ -18,11 +18,16 @@ namespace MyVet.Web.Controllers
     {
         private readonly DataContext _context;
         private readonly IUserHelper _userHelper;
+        private readonly IComboHelper _comboHelper;
 
-        public OwnersController(DataContext context, IUserHelper userHelper)
+        public OwnersController(
+            DataContext context, 
+            IUserHelper userHelper,
+            IComboHelper comboHelper)
         {
             _context = context;
             _userHelper = userHelper;
+            _comboHelper = comboHelper;
         }
 
         // GET: Owners
@@ -196,6 +201,29 @@ namespace MyVet.Web.Controllers
         private bool OwnerExists(int id)
         {
             return _context.Owners.Any(e => e.Id == id);
+        }
+
+        public async Task<IActionResult> AddPet(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var owner = await _context.Owners.FindAsync(id.Value);
+            if (owner == null)
+            {
+                return NotFound();
+            }
+
+            var model = new PetViewModel
+            {
+                Born = DateTime.Today,
+                OwnerId = owner.Id,
+                PetTypes = _comboHelper.GetComboPetTypes()
+            };
+
+            return View(model);
         }
     }
 }

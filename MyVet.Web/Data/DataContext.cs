@@ -16,5 +16,6 @@ namespace MyVet.Web.Data
         public DbSet<Pet> Pets { get; set; }
         public DbSet<PetType> PetTypes { get; set; }
         public DbSet<ServiceType> ServiceTypes { get; set; }
+
     }
 }
