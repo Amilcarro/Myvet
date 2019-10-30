@@ -25,6 +25,9 @@ namespace MyVet.Web.Data.Entities
         public DateTime DateLocal => Date.ToLocalTime();
 
         public ServiceType ServiceType { get; set; }
+
+        public Pet Pet { get; set; }
+
     }
 }
 
