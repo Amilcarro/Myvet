@@ -11,6 +11,5 @@ namespace MyVet.Web.Helpers
         Task<History> ToHistoryAsync(HistoryViewModel model, bool isNew);
         HistoryViewModel ToHistoryViewModel(History history);
 
-
     }
 }
